@@ -2,6 +2,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const path = require('path');
 
+require('dotenv').config();
+
 const app = express();
 
 const PORT = 3000 || process.env.PORT;
@@ -14,6 +16,10 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 const router = express.Router();
 app.use(router);
+
+require('./src/database/connection');
+
+require('./src/bootstrap')();
 
 const rootPath = path.resolve('./dist');
 app.use(express.static(rootPath));
